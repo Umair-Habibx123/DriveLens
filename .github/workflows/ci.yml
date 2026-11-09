@@ -15,12 +15,14 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Check out the repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false   # pull request code runs below; don't leave a token on disk
 
       - name: Lint PowerShell with PSScriptAnalyzer
         shell: powershell
         run: |
-          Install-Module PSScriptAnalyzer -Scope CurrentUser -Force -SkipPublisherCheck
+          Install-Module PSScriptAnalyzer -RequiredVersion 1.9.0 -Scope CurrentUser -Force -SkipPublisherCheck
           $issues = Invoke-ScriptAnalyzer -Path .\DriveLens.ps1 -Severity Error
           $issues | Format-Table -AutoSize
           if ($issues) { throw "PSScriptAnalyzer found $($issues.Count) error(s)." }

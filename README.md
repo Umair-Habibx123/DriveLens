@@ -1,19 +1,14 @@
 # DriveLens
 
-**See what's filling your Windows drive, and clean it up safely.**
+**Find out what's filling your Windows drive, and which parts are safe to delete.**
 
 [![CI](https://github.com/Umair-Habibx123/DriveLens/actions/workflows/ci.yml/badge.svg)](https://github.com/Umair-Habibx123/DriveLens/actions/workflows/ci.yml)
 [![Latest release](https://img.shields.io/github/v/release/Umair-Habibx123/DriveLens?label=release)](https://github.com/Umair-Habibx123/DriveLens/releases/latest)
-[![Downloads](https://img.shields.io/github/downloads/Umair-Habibx123/DriveLens/total?label=downloads)](https://github.com/Umair-Habibx123/DriveLens/releases)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
-![Platform: Windows 10 and 11](https://img.shields.io/badge/platform-Windows%2010%20%7C%2011-0078D4)
-![No install](https://img.shields.io/badge/install-none-success)
 
-**[⬇️ Download the latest release](https://github.com/Umair-Habibx123/DriveLens/releases/latest)**
+**Status:** v1.0.0, released November 2026, actively maintained. Tested on Windows 11, and on Windows Server in CI. It should also work on Windows 10, but that hasn't been tested yet.
 
-DriveLens scans a drive in seconds and opens a clear dashboard: a clickable map of your folders, what's safe to delete, what needs a second look, and step-by-step cleanup instructions. Right-click anything to open it in File Explorer.
-
-It's free, portable and needs no installation. It only reads your drive and never deletes anything on its own.
+DriveLens scans a drive and opens a dashboard in your browser. It shows which folders use the most space, labels each one as safe to delete or worth checking first, and gives you cleanup steps. Right-click anything to open it in File Explorer. It only reads your drive and never deletes anything itself.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/overview-dark.png">
@@ -22,138 +17,102 @@ It's free, portable and needs no installation. It only reads your drive and neve
 
 <sub>Screenshots use demo data.</sub>
 
+## Quick start
+
+1. Download `DriveLens-vX.Y.Z.zip` from the **[latest release](https://github.com/Umair-Habibx123/DriveLens/releases/latest)** and extract it.
+2. Double-click **`DriveLens.cmd`**.
+3. The dashboard opens in your browser when the scan finishes. A full 240 GB drive with 1.7 million files took 20 to 50 seconds on the author's PC.
+
+Keep the small console window open while you use the dashboard, because it powers the File Explorer and Rescan buttons. It closes by itself about a minute after you close the page.
+
+To run it from PowerShell instead, open the extracted folder and run:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\DriveLens.ps1
+```
+
 ## Why DriveLens
 
-When a drive fills up, Windows doesn't tell you why. Disk Cleanup only covers system files, and deleting folders at random is risky. DriveLens shows exactly where the space went, so you can decide what to remove.
+Tools like WinDirStat, WizTree and TreeSize show you **where** the space went. DriveLens also tells you **what you can safely do about it**:
 
-It's especially useful for developers, because it finds space that other cleanup tools miss:
+- **Verdicts with reasons:** every flagged folder is marked green (safe to delete) or yellow (check first), with a plain-language explanation.
+- **Developer caches:** it recognizes space that general tools don't label, such as the npm, pip, uv, Gradle and NuGet caches, `node_modules`, Python environments, `.next` build folders, Docker data and AI model caches.
+- **A cleanup guide:** it gives steps and copy-ready commands with the current size of each, plus which Disk Cleanup options are safe to tick.
+- **Nothing to install:** it's a PowerShell script and an HTML page you can read in full, with no executable to trust.
 
-- package caches such as npm, pip, uv, Yarn, pnpm, Gradle, NuGet, Cargo and Bun
-- `node_modules` folders, Python environments, and Terraform folders across your projects
-- framework build output such as `.next`, `.nuxt`, `.svelte-kit`, `.angular` and `.turbo`
-- AI model caches from Hugging Face and Ollama, Docker data and Android emulators
+**When to use something else:**
+- **Every file, or the fastest scan:** WizTree reads the drive's file table directly, so it's much faster on huge drives and lists individual files. DriveLens works at folder level.
+- **Deleting from inside the tool:** DriveLens never deletes anything itself. You use File Explorer or the provided commands.
+- **Duplicate files:** DriveLens doesn't look for them.
 
-## Features
+## What it finds
 
-- **Fast scan:** reads every folder in parallel, so a full drive usually takes under a minute.
-- **Clickable treemap:** shows the biggest folders at each level. Double-click to look inside, with a breadcrumb to go back.
-- **Open in File Explorer:** right-click any box to open it, show it in its parent folder, or copy its path.
-- **Clear verdicts:** green means safe to delete, yellow means needs review, and each one explains why.
-- **Cleanup guide:** gives steps and copy-ready commands with current sizes, plus which Disk Cleanup options are safe to tick.
-- **Drive health:** shows free space status, disk and file system health, and SSD wear and temperature when available.
-- **Any drive:** copy the folder to any drive and it scans that drive.
-- **Rescan:** see how much you recovered without leaving the page.
-- **Light and dark mode:** follows your Windows theme.
+| Color | Meaning | Examples |
+|---|---|---|
+| 🟩 Green | **Safe to delete.** It rebuilds itself. | Temp files, browser caches, npm, pip, uv and Yarn caches, `.next` and other build output |
+| 🟨 Yellow | **Needs review.** It could be safe, but check first. | `node_modules`, Python environments, Gradle and NuGet caches, Docker data, Hugging Face and Ollama models, Downloads, Recycle Bin, hibernation file |
+| ⬜ Gray | **Everything else.** Leave it unless you know what it is. | Windows, installed apps, your documents |
 
-## Screenshots
+To flag something else, add a rule in `DriveLens.ps1`. [CONTRIBUTING.md](CONTRIBUTING.md) shows how.
 
-### Right-click to open any folder in File Explorer
+## The dashboard
+
+- **Treemap:** shows the biggest folders at each level. Double-click to look inside, and use the breadcrumb or Backspace to go back.
+- **Details panel:** click any box to see its size, location, verdict and largest subfolders.
+- **Right-click menu:** open a folder in File Explorer, show it in its parent folder, or copy its path.
+- **Drive health:** shows free space status, disk and file system health, and SSD wear and temperature when Windows reports them.
+- **Clean up tab:** lists every step with its size, plus every flagged item with all of its locations.
+- **Rescan:** see how much you recovered without restarting.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/right-click-dark.png">
   <img alt="Right-click menu on a project folder with Open in File Explorer, Show in parent folder, Copy path and Look inside" src="docs/screenshots/right-click-light.png">
 </picture>
 
-### Step-by-step cleanup guide
+<details>
+<summary>See the cleanup guide</summary>
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/cleanup-dark.png">
   <img alt="Clean up tab with numbered steps, sizes for each step, Disk Cleanup advice and copy-ready commands" src="docs/screenshots/cleanup-light.png">
 </picture>
 
-## Quick start
-
-1. Download `DriveLens-vX.Y.Z.zip` from the [latest release](https://github.com/Umair-Habibx123/DriveLens/releases/latest) and extract it.
-2. Double-click **`DriveLens.cmd`**.
-3. Wait for the scan. The dashboard opens in your browser.
-
-For fuller results on your Windows drive, right-click `DriveLens.cmd` and choose **Run as administrator**. This lets it measure protected folders such as the Windows Update cache, and it may also show SSD wear and temperature.
-
-Keep the small console window open while you use the dashboard. It closes by itself about a minute after you close the page.
-
-## Scan another drive
-
-Copy the whole folder to the drive you want to scan, such as `D:\DriveLens`, and run it from there. DriveLens always scans the drive it's on.
-
-To scan a different drive without moving the folder, run this from the DriveLens folder:
-
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\DriveLens.ps1 -Drive E
-```
-
-| Option | What it does |
-|---|---|
-| `-Drive E` | Scan drive E instead of the drive DriveLens is on |
-| `-NoServer` | Only write the report file, without the File Explorer and Rescan buttons |
-| `-NoOpen` | Don't open the browser automatically |
-
-## How to use the dashboard
-
-| Action | Result |
-|---|---|
-| Click a box | Select it and show its size, location and advice |
-| Double-click, or press Enter | Look inside a folder |
-| Right-click, or press Shift + F10 | Open in File Explorer, show in parent folder, or copy path |
-| Backspace | Go up one folder |
-
-## What the colors mean
-
-| Color | Meaning | What to do |
-|---|---|---|
-| Green | Safe to delete | Caches and build output that rebuild themselves. Follow the **Clean up** tab. |
-| Yellow | Needs review | Could be safe, but check first. Each item explains why. |
-| Gray | Everything else | Leave it unless you know what it is. |
+</details>
 
 ## Safety and privacy
 
-- **Read-only:** DriveLens never deletes, moves or changes your files. You run every cleanup step yourself.
-- **Stays on your PC:** nothing is uploaded anywhere. There's no telemetry, account or internet connection required.
-- **Private local server:** while the dashboard is open, it's served from `127.0.0.1` so the page can open File Explorer. That server:
-  - accepts connections from your own PC only
-  - needs a one-time key that's only in your page
-  - only opens locations found in the scan
-- **One file written:** the only file it writes is `DriveLens-Report.html` in its own folder. That report lists your folder names, so don't share it publicly.
+- **Read-only:** DriveLens never deletes, moves or changes your files.
+- **Offline:** nothing leaves your PC. There's no telemetry, account or internet connection.
+- **Locked-down local server:** the page talks to a small server on `127.0.0.1`. It accepts connections from your own PC only, needs a one-time key, and only opens locations from the current scan. [SECURITY.md](SECURITY.md) has the details.
+- **One file written:** the only file it writes is `DriveLens-Report.html` in its own folder. It lists your folder names, so don't share it publicly.
 
-## Requirements
+## Options
 
-- Windows 10 or Windows 11
-- Windows PowerShell 5.1, which comes with Windows
-- Any modern browser
+DriveLens scans the drive it's on, so to scan another drive, copy the folder there, such as `D:\DriveLens`. Or pass options:
 
-No installation, admin rights or extra software required.
-
-## What it doesn't do
-
-- It doesn't find duplicate files, or leftover folders from uninstalled apps.
-- Drive health shows what Windows reports, not a full disk test.
-- Without admin rights, some protected system folders are skipped.
-
-## Customize what gets flagged
-
-Detection rules live in the `$rules` list near the top of `DriveLens.ps1`. Each rule has a label, a verdict (`Safe`, `Review` or `Keep`), a short reason, and either exact paths or folder names to match. Pull requests with new rules are welcome.
-
-## Project files
-
-| File | Purpose |
+| Option | What it does |
 |---|---|
-| `DriveLens.cmd` | Double-click to run |
-| `DriveLens.ps1` | Scans the drive, builds the dashboard and runs the local server |
-| `template.html` | The dashboard's design, charts and cleanup guide |
-| `docs/screenshots/` | Images used in this README |
-| `.github/workflows/` | Automatic checks on every push, and release packaging |
+| `-Drive E` | Scan drive E instead |
+| `-NoServer` | Only write the report file, without the File Explorer and Rescan buttons |
+| `-NoOpen` | Don't open the browser |
+
+Right-click `DriveLens.cmd` and choose **Run as administrator** to measure protected folders, such as the Windows Update cache, and to show SSD wear and temperature.
+
+## Requirements and limits
+
+- **Windows PowerShell 5.1** (included with Windows) and any modern browser. No admin rights required.
+- **Folder-level scan:** small folders are grouped together.
+- **Protected folders:** without admin rights, some system folders are skipped.
+- **Drive health:** it shows what Windows reports, not a full disk test.
+- **Uninstall:** delete the DriveLens folder. Nothing is installed or written anywhere else.
 
 ## Contributing
 
-Bug reports, ideas and pull requests are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) to add a detection rule or make a change, and [open an issue](https://github.com/Umair-Habibx123/DriveLens/issues/new/choose) to report a problem. Please report security problems privately, as described in [SECURITY.md](SECURITY.md).
-
-See the [changelog](CHANGELOG.md) for what's new in each release.
-
-## Author
-
-Created by **Umair Habib** ([@Umair-Habibx123](https://github.com/Umair-Habibx123)).
-
-If DriveLens helped you free up space, consider giving it a ⭐ on GitHub so others can find it.
+Bug reports, detection ideas and pull requests are welcome:
+- [CONTRIBUTING.md](CONTRIBUTING.md) explains how to add a rule.
+- [CHANGELOG.md](CHANGELOG.md) lists what changed in each release.
+- [SECURITY.md](SECURITY.md) explains how to report a security problem privately.
 
 ## License
 
-[MIT](LICENSE) © 2026 Umair Habib
+[MIT](LICENSE) © 2026 [Umair Habib](https://github.com/Umair-Habibx123). If DriveLens saved you some space, a ⭐ helps others find it.
