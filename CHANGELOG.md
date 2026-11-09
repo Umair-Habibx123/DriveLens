@@ -17,4 +17,4 @@ First public release.
 - **Any drive:** run it from any drive, or scan another one with `-Drive`.
 - **Light and dark mode.**
 
-[1.0.0]: https://github.com/Umair-Habibx123/DriveLens/releases/tag/v1.0.0
+[1.0.0]: https://github.com/Umair-Habibx123/drivelens/releases/tag/v1.0.0

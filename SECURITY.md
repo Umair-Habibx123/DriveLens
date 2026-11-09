@@ -13,7 +13,7 @@
 
 ## Reporting a vulnerability
 
-Please don't open a public issue for security problems. Report them privately through [GitHub's private vulnerability reporting](https://github.com/Umair-Habibx123/DriveLens/security/advisories/new), or email umairhabibabc@gmail.com.
+Please don't open a public issue for security problems. Report them privately through [GitHub's private vulnerability reporting](https://github.com/Umair-Habibx123/drivelens/security/advisories/new), or email umairhabibabc@gmail.com.
 
 Include the steps to reproduce the problem and what an attacker could do. You'll get a reply within a week.
 

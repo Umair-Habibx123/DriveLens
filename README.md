@@ -2,8 +2,8 @@
 
 **Find out what's filling your Windows drive, and which parts are safe to delete.**
 
-[![CI](https://github.com/Umair-Habibx123/DriveLens/actions/workflows/ci.yml/badge.svg)](https://github.com/Umair-Habibx123/DriveLens/actions/workflows/ci.yml)
-[![Latest release](https://img.shields.io/github/v/release/Umair-Habibx123/DriveLens?label=release)](https://github.com/Umair-Habibx123/DriveLens/releases/latest)
+[![CI](https://github.com/Umair-Habibx123/drivelens/actions/workflows/ci.yml/badge.svg)](https://github.com/Umair-Habibx123/drivelens/actions/workflows/ci.yml)
+[![Latest release](https://img.shields.io/github/v/release/Umair-Habibx123/drivelens?label=release)](https://github.com/Umair-Habibx123/drivelens/releases/latest)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
 **Status:** v1.0.0, released November 2026, actively maintained. Tested on Windows 11, and on Windows Server in CI. It should also work on Windows 10, but that hasn't been tested yet.
@@ -19,7 +19,7 @@ DriveLens scans a drive and opens a dashboard in your browser. It shows which fo
 
 ## Quick start
 
-1. Download `DriveLens-vX.Y.Z.zip` from the **[latest release](https://github.com/Umair-Habibx123/DriveLens/releases/latest)** and extract it.
+1. Download `DriveLens-vX.Y.Z.zip` from the **[latest release](https://github.com/Umair-Habibx123/drivelens/releases/latest)** and extract it.
 2. Double-click **`DriveLens.cmd`**.
 3. The dashboard opens in your browser when the scan finishes. A full 240 GB drive with 1.7 million files took 20 to 50 seconds on the author's PC.
 

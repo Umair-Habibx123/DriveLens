@@ -4,7 +4,7 @@ Thanks for helping make DriveLens better. Bug reports, ideas and pull requests a
 
 ## Report a bug or suggest an idea
 
-[Open an issue](https://github.com/Umair-Habibx123/DriveLens/issues/new/choose) and pick a template. For bugs, include:
+[Open an issue](https://github.com/Umair-Habibx123/drivelens/issues/new/choose) and pick a template. For bugs, include:
 - your Windows version
 - whether you ran DriveLens as administrator
 - any message shown in the console window
