@@ -1,0 +1,4 @@
+# Scan reports list your folder names. Never commit them.
+DriveLens-Report.html
+SpaceMap.html
+*.log

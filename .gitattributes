@@ -1,0 +1,5 @@
+# Windows scripts need Windows line endings to run correctly after download.
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+*.html text eol=crlf
+*.md text eol=lf
