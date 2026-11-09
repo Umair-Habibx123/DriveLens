@@ -1,0 +1,32 @@
+name: Release
+
+# Push a tag such as v1.0.0 to publish a downloadable ZIP on the Releases page.
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Build and publish the ZIP
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Package DriveLens
+        run: |
+          mkdir -p dist/DriveLens
+          cp DriveLens.cmd DriveLens.ps1 template.html README.md LICENSE dist/DriveLens/
+          cd dist && zip -r "DriveLens-${GITHUB_REF_NAME}.zip" DriveLens
+
+      - name: Publish the release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/DriveLens-${{ github.ref_name }}.zip
+          generate_release_notes: true
+          body: |
+            **Download `DriveLens-${{ github.ref_name }}.zip` below**, extract it, and double-click `DriveLens.cmd`.
+            See the [changelog](https://github.com/${{ github.repository }}/blob/main/CHANGELOG.md) for what's new.

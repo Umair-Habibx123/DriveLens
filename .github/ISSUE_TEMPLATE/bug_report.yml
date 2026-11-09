@@ -1,0 +1,37 @@
+name: Bug report
+description: Something doesn't work as expected
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for reporting a problem. Please don't paste your scan report, because it lists your folder names.
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What did you do, what did you expect, and what happened instead?
+    validations:
+      required: true
+  - type: textarea
+    id: console
+    attributes:
+      label: Console message
+      description: Copy any message from the DriveLens console window.
+      render: text
+  - type: input
+    id: windows
+    attributes:
+      label: Windows version
+      placeholder: Windows 11 24H2
+    validations:
+      required: true
+  - type: dropdown
+    id: admin
+    attributes:
+      label: Did you run it as administrator?
+      options: ["No", "Yes", "Not sure"]
+  - type: input
+    id: version
+    attributes:
+      label: DriveLens version
+      placeholder: v1.0.0

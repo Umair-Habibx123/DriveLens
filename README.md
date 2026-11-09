@@ -2,6 +2,15 @@
 
 **See what's filling your Windows drive, and clean it up safely.**
 
+[![CI](https://github.com/Umair-Habibx123/DriveLens/actions/workflows/ci.yml/badge.svg)](https://github.com/Umair-Habibx123/DriveLens/actions/workflows/ci.yml)
+[![Latest release](https://img.shields.io/github/v/release/Umair-Habibx123/DriveLens?label=release)](https://github.com/Umair-Habibx123/DriveLens/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/Umair-Habibx123/DriveLens/total?label=downloads)](https://github.com/Umair-Habibx123/DriveLens/releases)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+![Platform: Windows 10 and 11](https://img.shields.io/badge/platform-Windows%2010%20%7C%2011-0078D4)
+![No install](https://img.shields.io/badge/install-none-success)
+
+**[⬇️ Download the latest release](https://github.com/Umair-Habibx123/DriveLens/releases/latest)**
+
 DriveLens scans a drive in seconds and opens a clear dashboard: a clickable map of your folders, what's safe to delete, what needs a second look, and step-by-step cleanup instructions. Right-click anything to open it in File Explorer.
 
 It's free, portable and needs no installation. It only reads your drive and never deletes anything on its own.
@@ -54,7 +63,7 @@ It's especially useful for developers, because it finds space that other cleanup
 
 ## Quick start
 
-1. Download this repository: click **Code**, then **Download ZIP**, and extract it.
+1. Download `DriveLens-vX.Y.Z.zip` from the [latest release](https://github.com/Umair-Habibx123/DriveLens/releases/latest) and extract it.
 2. Double-click **`DriveLens.cmd`**.
 3. Wait for the scan. The dashboard opens in your browser.
 
@@ -131,10 +140,13 @@ Detection rules live in the `$rules` list near the top of `DriveLens.ps1`. Each 
 | `DriveLens.ps1` | Scans the drive, builds the dashboard and runs the local server |
 | `template.html` | The dashboard's design, charts and cleanup guide |
 | `docs/screenshots/` | Images used in this README |
+| `.github/workflows/` | Automatic checks on every push, and release packaging |
 
 ## Contributing
 
-Bug reports, ideas and pull requests are welcome. Open an issue to report a problem or suggest a new cache or folder that DriveLens should detect.
+Bug reports, ideas and pull requests are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) to add a detection rule or make a change, and [open an issue](https://github.com/Umair-Habibx123/DriveLens/issues/new/choose) to report a problem. Please report security problems privately, as described in [SECURITY.md](SECURITY.md).
+
+See the [changelog](CHANGELOG.md) for what's new in each release.
 
 ## Author
 

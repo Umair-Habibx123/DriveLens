@@ -1,0 +1,25 @@
+name: Feature or detection idea
+description: Suggest a feature, or a cache or folder DriveLens should flag
+labels: [enhancement]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: What would you like?
+      description: Describe the feature, or the folder DriveLens should detect.
+    validations:
+      required: true
+  - type: input
+    id: path
+    attributes:
+      label: Folder path (for detection ideas)
+      placeholder: '%LOCALAPPDATA%\SomeApp\Cache'
+  - type: dropdown
+    id: verdict
+    attributes:
+      label: Is it always safe to delete?
+      options: ["Yes, it rebuilds itself", "Usually, but check first", "Not sure"]
+  - type: textarea
+    id: why
+    attributes:
+      label: Why does it help?

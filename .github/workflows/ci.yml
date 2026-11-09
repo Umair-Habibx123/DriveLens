@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Lint and smoke test on Windows
+    runs-on: windows-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Lint PowerShell with PSScriptAnalyzer
+        shell: powershell
+        run: |
+          Install-Module PSScriptAnalyzer -Scope CurrentUser -Force -SkipPublisherCheck
+          $issues = Invoke-ScriptAnalyzer -Path .\DriveLens.ps1 -Severity Error
+          $issues | Format-Table -AutoSize
+          if ($issues) { throw "PSScriptAnalyzer found $($issues.Count) error(s)." }
+
+      - name: Scan a drive and build the report
+        shell: powershell
+        run: |
+          .\DriveLens.ps1 -Drive D -NoServer -NoOpen
+          $report = Get-Content .\DriveLens-Report.html -Raw
+          if ($report -notmatch '"drive":"D:"') { throw 'The report is missing its scan data.' }
+          Write-Host "Report size: $($report.Length) characters"
+
+      - name: Check the dashboard's JavaScript parses
+        shell: powershell
+        run: |
+          $html = Get-Content .\template.html -Raw
+          $script = [regex]::Matches($html, '(?s)<script>(.*?)</script>') | Select-Object -Last 1
+          Set-Content -Path "$env:RUNNER_TEMP\dashboard.js" -Value $script.Groups[1].Value -Encoding UTF8
+          node --check "$env:RUNNER_TEMP\dashboard.js"
