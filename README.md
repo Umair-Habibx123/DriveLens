@@ -6,6 +6,13 @@ DriveLens scans a drive in seconds and opens a clear dashboard: a clickable map 
 
 It's free, portable and needs no installation. It only reads your drive and never deletes anything on its own.
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/overview-dark.png">
+  <img alt="DriveLens overview: free and used space, drive health, a treemap of the biggest folders and a details panel" src="docs/screenshots/overview-light.png">
+</picture>
+
+<sub>Screenshots use demo data.</sub>
+
 ## Why DriveLens
 
 When a drive fills up, Windows doesn't tell you why. Disk Cleanup only covers system files, and deleting folders at random is risky. DriveLens shows exactly where the space went, so you can decide what to remove.
@@ -28,6 +35,22 @@ It's especially useful for developers, because it finds space that other cleanup
 - **Any drive:** copy the folder to any drive and it scans that drive.
 - **Rescan:** see how much you recovered without leaving the page.
 - **Light and dark mode:** follows your Windows theme.
+
+## Screenshots
+
+### Right-click to open any folder in File Explorer
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/right-click-dark.png">
+  <img alt="Right-click menu on a project folder with Open in File Explorer, Show in parent folder, Copy path and Look inside" src="docs/screenshots/right-click-light.png">
+</picture>
+
+### Step-by-step cleanup guide
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/cleanup-dark.png">
+  <img alt="Clean up tab with numbered steps, sizes for each step, Disk Cleanup advice and copy-ready commands" src="docs/screenshots/cleanup-light.png">
+</picture>
 
 ## Quick start
 
@@ -107,6 +130,7 @@ Detection rules live in the `$rules` list near the top of `DriveLens.ps1`. Each 
 | `DriveLens.cmd` | Double-click to run |
 | `DriveLens.ps1` | Scans the drive, builds the dashboard and runs the local server |
 | `template.html` | The dashboard's design, charts and cleanup guide |
+| `docs/screenshots/` | Images used in this README |
 
 ## Contributing
 
